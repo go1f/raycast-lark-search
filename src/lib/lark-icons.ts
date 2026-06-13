@@ -1,3 +1,4 @@
+import { Image } from "@raycast/api";
 import { join } from "node:path";
 import { LarkSearchItem } from "./types";
 
@@ -11,21 +12,39 @@ type LarkIconKind =
   | "message";
 
 const iconFiles: Record<LarkIconKind, string> = {
-  doc: "lark-doc.svg",
-  bitable: "lark-bitable.svg",
-  sheet: "lark-sheet.svg",
-  pdf: "lark-pdf.svg",
-  chat: "lark-chat.svg",
-  contact: "lark-contact.svg",
-  message: "lark-message.svg",
+  doc: "lark-doc.png",
+  bitable: "lark-bitable.png",
+  sheet: "lark-sheet.png",
+  pdf: "lark-pdf.png",
+  chat: "lark-chat.png",
+  contact: "lark-contact.png",
+  message: "lark-message.png",
 };
 
-export function larkIconForItem(item: LarkSearchItem) {
-  return getAvatarUrl(item.raw) ?? assetIconPath(inferIconKind(item));
+export function larkIconForItem(item: LarkSearchItem): Image.ImageLike {
+  const kind = inferIconKind(item);
+  const avatarUrl = getAvatarUrl(item.raw);
+
+  if (avatarUrl) {
+    return isPeopleIcon(kind)
+      ? {
+          source: avatarUrl,
+          mask: Image.Mask.Circle,
+          fallback: assetIconPath(kind),
+        }
+      : { source: avatarUrl, fallback: assetIconPath(kind) };
+  }
+
+  const source = assetIconPath(kind);
+  return isPeopleIcon(kind) ? { source, mask: Image.Mask.Circle } : source;
 }
 
 export function scriptIconForItem(item: LarkSearchItem) {
-  return larkIconForItem(item);
+  return assetIconPath(inferIconKind(item));
+}
+
+function isPeopleIcon(kind: LarkIconKind) {
+  return kind === "chat" || kind === "contact";
 }
 
 function inferIconKind(item: LarkSearchItem): LarkIconKind {

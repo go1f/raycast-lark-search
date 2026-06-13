@@ -138,7 +138,7 @@ export default function Command(
       isLoading={isLoading}
       searchText={searchText}
       onSearchTextChange={setSearchText}
-      searchBarPlaceholder="搜索飞书，追加 /doc /msg /im 指定范围"
+      searchBarPlaceholder="Search Lark, append /doc /msg /im to filter"
       searchBarAccessory={<ScopeDropdown scope={scope} setScope={setScope} />}
       throttle
     >

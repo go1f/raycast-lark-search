@@ -4,7 +4,7 @@
   "title": "Lark Search",
   "description": "Search Lark docs, chats, messages, and contacts from Raycast via lark-cli.",
   "icon": "icon.png",
-  "author": "thomas",
+  "author": "jyufu_ko",
   "license": "MIT",
   "categories": [
     "Productivity",
