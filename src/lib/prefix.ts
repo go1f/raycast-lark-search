@@ -18,26 +18,8 @@ const scopeOrder: SearchScopeFilter = [
 const prefixScopes: Record<string, SearchScopeFilter> = {
   all: defaultSearchScopes,
   doc: ["doc"],
-  docs: ["doc"],
-  file: ["doc"],
   msg: ["message"],
-  msgs: ["message"],
-  message: ["message"],
-  messages: ["message"],
   im: ["contact", "chat"],
-  chat: ["chat"],
-  group: ["chat"],
-  qun: ["chat"],
-  q: ["chat"],
-  ren: ["contact"],
-  r: ["contact"],
-  user: ["contact"],
-  contact: ["contact"],
-  people: ["contact"],
-  person: ["contact"],
-  wiki: ["wiki"],
-  sheet: ["sheet"],
-  table: ["sheet"],
 };
 
 export function parseSearchPrefix(input: string, selectedScope: SearchScope) {
@@ -58,25 +40,8 @@ export function parseSearchPrefix(input: string, selectedScope: SearchScope) {
     trimmed = trimmed.slice(0, suffixMatch.index).trimEnd();
   }
 
-  const match = /^f\s+([a-z]+)\s+(.+)$/i.exec(trimmed);
-
-  if (!match) {
-    return {
-      query: trimmed,
-      scopes,
-      scopeKey: scopeKey(scopes),
-      hasTypeFilters,
-    };
-  }
-
-  const prefixMatch = prefixScopes[match[1].toLowerCase()];
-  if (prefixMatch?.length) {
-    scopes = dedupeScopes(prefixMatch);
-    hasTypeFilters = true;
-  }
-
   return {
-    query: match[2].trimStart(),
+    query: trimmed,
     scopes,
     scopeKey: scopeKey(scopes),
     hasTypeFilters,

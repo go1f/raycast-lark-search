@@ -16,7 +16,7 @@ Raycast 是系统级启动器和搜索入口。Lark Search 的目标是把飞书
 
 当前 extension 名称为 `Lark Search`，包名为 `lark-search`。
 
-当前落地方案已经从早期 PRD 的 “Quicklinks Hot Index + SQLite FTS” 调整为：
+当前落地方案：
 
 - Root Search 高频直出：使用 Raycast Script Commands Hot Index。
 - 长尾实时搜索：使用 `lark-cli` live search。
@@ -29,6 +29,12 @@ Raycast 是系统级启动器和搜索入口。Lark Search 的目标是把飞书
 - Raycast Extension 不能动态注入远端搜索结果到 Root Search。
 - Script Commands 可以被 Raycast 原生索引，且脚本文件可由 extension 静默维护。
 - 当前数据规模只需要轻量缓存，SQLite FTS 暂未成为 MVP 必需项。
+
+官方 Store 一句话描述建议：
+
+```text
+搜索飞书/Feishu/Lark docs, messages, chats, and contacts from Raycast.
+```
 
 ## 3. 产品目标
 
@@ -113,14 +119,13 @@ Search Lark, append /doc /msg /im to filter
 - `/msg` 搜索消息。
 - `/im` 泛指联系人和群组。
 - 多个 `/` 标识符可以组合，显示全量匹配范围内结果。
-- 早期 `f doc 关键词`、`f msg 关键词`、`f user 关键词` 前缀仍保留兼容，但产品引导以结尾 `/doc /msg /im` 为主。
 
 ### 5.4 结果展示
 
 当前 Lark Search 结果展示策略：
 
 - 联系人和群组混合展示，优先出现在顶部。
-- 默认只预览前 8 个联系人/群组结果，显式使用 `/im`、`/ren`、`/chat` 等过滤时展示全量。
+- 默认只预览前 8 个联系人/群组结果，显式使用 `/im` 过滤时展示全量。
 - 分类展示顺序以联系人/群组优先，其后为消息、云文档、Wiki、表格等。
 - 标题、摘要、部门、邮箱、更新时间、群消息更新时间等信息尽量在一行内展示，减少分栏割裂。
 - 搜索结果会解码 HTML 实体，避免显示 `&amp;` 等转义字符。
@@ -142,34 +147,34 @@ Search Lark, append /doc /msg /im to filter
 
 ## 6. 已实现功能清单
 
-| 功能 | 当前状态 |
-| --- | --- |
-| Raycast 命令 `Lark Search` | 已实现 |
-| `lark-cli` 用户身份搜索 | 已实现 |
-| 云文档搜索 | 已实现 |
-| 消息搜索 | 已实现 |
-| 群组搜索 | 已实现 |
-| 联系人搜索 | 已实现 |
-| Wiki / 表格类型识别 | 已实现，依赖 docs 搜索结果元数据 |
-| 搜索范围下拉筛选 | 已实现 |
-| `/doc /msg /im` 结尾过滤 | 已实现 |
-| 多个 `/` 过滤同时生效 | 已实现 |
-| 本地最近打开缓存 | 已实现，最多 100 条 |
-| 历史搜索结果缓存 | 已实现，最多 50 个 query/scope 条目 |
-| 缓存先显示、live search 后刷新 | 已实现 |
-| 打开结果并记录点击 | 已实现 |
-| 点击结果后更新 Hot Index | 已实现 |
-| 文档浏览器打开 | 已实现 |
-| 群聊/消息/联系人飞书客户端打开 | 已实现 |
-| 打开后关闭 Raycast | 已实现 |
-| 复制链接/标题/Raw JSON | 已实现 |
-| 手动创建 Quicklink | 已实现 |
-| Quicklinks JSON 导出 | 已实现，但不是主索引路径 |
-| Script Commands Hot Index | 已实现 |
-| Hot Index 3 分钟后台刷新 | 已实现，`Refresh Lark Hot Index` interval 为 `3m` |
-| Hot Index 初始化引导 | 已实现 |
-| Hot Index 本地图标资产 | 已实现 |
-| lark-cli 最小版本和 scope 提示 | 已在初始化引导和 README 中提示 |
+| 功能                           | 当前状态                                          |
+| ------------------------------ | ------------------------------------------------- |
+| Raycast 命令 `Lark Search`     | 已实现                                            |
+| `lark-cli` 用户身份搜索        | 已实现                                            |
+| 云文档搜索                     | 已实现                                            |
+| 消息搜索                       | 已实现                                            |
+| 群组搜索                       | 已实现                                            |
+| 联系人搜索                     | 已实现                                            |
+| Wiki / 表格类型识别            | 已实现，依赖 docs 搜索结果元数据                  |
+| 搜索范围下拉筛选               | 已实现                                            |
+| `/doc /msg /im` 结尾过滤       | 已实现                                            |
+| 多个 `/` 过滤同时生效          | 已实现                                            |
+| 本地最近打开缓存               | 已实现，最多 100 条                               |
+| 历史搜索结果缓存               | 已实现，最多 50 个 query/scope 条目               |
+| 缓存先显示、live search 后刷新 | 已实现                                            |
+| 打开结果并记录点击             | 已实现                                            |
+| 点击结果后更新 Hot Index       | 已实现                                            |
+| 文档浏览器打开                 | 已实现                                            |
+| 群聊/消息/联系人飞书客户端打开 | 已实现                                            |
+| 打开后关闭 Raycast             | 已实现                                            |
+| 复制链接/标题/Raw JSON         | 已实现                                            |
+| 手动创建 Quicklink             | 已实现                                            |
+| Quicklinks JSON 导出           | 已实现，但不是主索引路径                          |
+| Script Commands Hot Index      | 已实现                                            |
+| Hot Index 3 分钟后台刷新       | 已实现，`Refresh Lark Hot Index` interval 为 `3m` |
+| Hot Index 初始化引导           | 已实现                                            |
+| Hot Index 本地图标资产         | 已实现                                            |
+| lark-cli 最小版本和 scope 提示 | 已在初始化引导和 README 中提示                    |
 
 ## 7. Hot Index 数据来源与排序
 
@@ -255,43 +260,9 @@ flowchart LR
   Root --> Lark["Browser or Lark Desktop App"]
 ```
 
-## 10. 已迭代或不再适用的早期设想
+## 10. 差距与后续事项
 
-### 10.1 Quicklinks 自动导入
-
-早期设想是批量同步 Quicklinks 进入 Root Search。当前已调整为 Script Commands Hot Index。
-
-原因：
-
-- Quicklinks 自动导入需要人工 UI 确认，不适合后台稳定维护。
-- Script Commands 文件可静默生成、覆盖、删除，更适合作为可写 Root Search 索引。
-
-保留能力：
-
-- 单个结果仍可手动 `Add to Root Search Quicklink`。
-- 最近打开结果仍可导出 Quicklinks JSON，供人工导入。
-
-### 10.2 SQLite FTS
-
-早期设想使用 SQLite FTS 做本地全文索引。当前 MVP 未实现，改为 Raycast `LocalStorage` 轻量缓存。
-
-原因：
-
-- 当前主要瓶颈是远端搜索和 Root Search 直出，不是本地全文检索。
-- 最近打开缓存和历史搜索缓存已经覆盖重复搜索的主要低延迟场景。
-- 避免在 MVP 阶段存储过多消息正文，降低隐私和维护成本。
-
-### 10.3 完整复刻飞书 Ctrl+K
-
-当前目标不是像素级复刻飞书搜索 UI，而是在 Raycast 约束内提供高频直出和长尾搜索。飞书原生搜索中的全部分类、展开更多、强富文本高亮、头像等体验不会在 MVP 中完全复刻。
-
-### 10.4 修改 Raycast 私有数据库
-
-不采用修改 Raycast 私有数据库的方式清理或注入 extension/搜索结果。开发过程中如出现重复本地 extension，应通过 Raycast Settings 手动删除旧开发注册项，并保持 `package.json` 的 `name` 和 `author` 稳定。
-
-## 11. 差距与后续事项
-
-### 11.1 Root Search 真实头像
+### 10.1 Root Search 真实头像
 
 当前 Root Search 使用 `.assets/lark-contact.png`、`.assets/lark-chat.png` 等本地图标，保证不会回退成默认文档图标。
 
@@ -300,7 +271,7 @@ flowchart LR
 - 群聊接口返回 avatar URL，但 Root Search Script Command 当前仍使用通用群聊图标，尚未下载并缓存真实群头像。
 - 私聊联系人在当前 `lark-cli im +chat-list` 和 `contact +get-user` 返回中没有 avatar URL，因此无法显示真实人物照片。后续需要 lark-cli 增加带头像的用户接口或更高权限字段。
 
-### 11.2 富文本高亮
+### 10.2 富文本高亮
 
 当前已清理 `<h>` 标记并展示上下文，但 Raycast `List.Item` 标题/副标题仍是纯文本，未实现像飞书一样的黄色命中高亮。
 
@@ -309,17 +280,17 @@ flowchart LR
 - 增加 `List.Item.Detail` 展示 markdown 高亮和上下文。
 - 在列表标题中保留纯文本，选中项右侧展示高亮详情。
 
-### 11.3 正式 fallback command
+### 10.3 正式 fallback command
 
 代码层面已读取 `props.fallbackText` 和 `arguments.query`，但当前 `package.json` 尚未声明一个稳定的 fallback command 入口。Root Search 长尾承接当前主要依赖用户手动打开 `Lark Search`，或依赖 Raycast 行为触发。
 
 后续需要验证 Raycast 当前版本的 fallback command manifest 配置，并补齐正式入口。
 
-### 11.4 分页与“展开更多”
+### 10.4 分页与“展开更多”
 
 当前 `lark-cli` 调用内部会拉取多页或 page-all，但 Raycast UI 没有做飞书式“展开更多”按钮，也没有无限滚动分页。
 
-### 11.5 联系人/群组混排与折叠细节
+### 10.5 联系人/群组混排与折叠细节
 
 当前联系人和群组已混合展示，并默认限制前 8 个。后续可继续优化：
 
@@ -327,7 +298,7 @@ flowchart LR
 - 对显式 `/im` 搜索展示更多联系人/群组上下文。
 - 将“展开更多”作为 Raycast action 或独立 filter。
 
-### 11.6 开发安装稳定性
+### 10.6 开发安装稳定性
 
 开发过程中多次改变 `author` 或反复运行 `ray develop` 会在 Raycast Settings 中产生多个本地开发 extension 注册项。
 
@@ -337,7 +308,7 @@ flowchart LR
 - 日常验证优先使用 `npm run lint` 和 `npm run build`。
 - 只有需要重新注册本地 extension 时才短暂运行 `ray develop --non-interactive`，注册完成后立即停止。
 
-## 12. 非目标
+## 11. 非目标
 
 MVP 阶段不追求：
 
@@ -348,7 +319,7 @@ MVP 阶段不追求：
 - 完整复刻飞书 `Ctrl+K` UI。
 - 在当前 lark-cli 不返回头像字段的情况下强行伪造真实联系人头像。
 
-## 13. 一句话总结
+## 12. 一句话总结
 
 Lark Search 是一个飞书内容到 Raycast 搜索体系的索引桥。
 
