@@ -1,9 +1,16 @@
 import { getPreferenceValues } from "@raycast/api";
 import { execFile } from "node:child_process";
-import { chmod, mkdir, readdir, rm, writeFile } from "node:fs/promises";
+import {
+  chmod,
+  copyFile,
+  mkdir,
+  readdir,
+  rm,
+  writeFile,
+} from "node:fs/promises";
 import { join } from "node:path";
 import { promisify } from "node:util";
-import { scriptIconForItem } from "./lark-icons";
+import { scriptIconFileNames, scriptIconForItem } from "./lark-icons";
 import { getRecents } from "./recent-cache";
 import { LarkSearchItem, LarkSearchType } from "./types";
 
@@ -291,6 +298,7 @@ async function runLarkCli(args: string[]) {
 async function writeHotIndex(items: HotIndexItem[]) {
   const directory = getHotIndexDirectory();
   await mkdir(directory, { recursive: true });
+  await syncScriptAssets(directory);
   await removeExistingScripts(directory);
 
   await Promise.all(
@@ -302,6 +310,19 @@ async function writeHotIndex(items: HotIndexItem[]) {
         await writeFile(filePath, scriptContent(item), "utf8");
         await chmod(filePath, 0o755);
       }),
+  );
+}
+
+async function syncScriptAssets(directory: string) {
+  const assetsDirectory = join(directory, ".assets");
+  await mkdir(assetsDirectory, { recursive: true });
+  await Promise.all(
+    scriptIconFileNames.map((filename) =>
+      copyFile(
+        join(__dirname, "assets", filename),
+        join(assetsDirectory, filename),
+      ),
+    ),
   );
 }
 

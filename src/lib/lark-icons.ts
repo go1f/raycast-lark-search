@@ -21,6 +21,8 @@ const iconFiles: Record<LarkIconKind, string> = {
   message: "lark-message.png",
 };
 
+export const scriptIconFileNames = [...new Set(Object.values(iconFiles))];
+
 export function larkIconForItem(item: LarkSearchItem): Image.ImageLike {
   const kind = inferIconKind(item);
   const avatarUrl = getAvatarUrl(item.raw);
@@ -40,7 +42,7 @@ export function larkIconForItem(item: LarkSearchItem): Image.ImageLike {
 }
 
 export function scriptIconForItem(item: LarkSearchItem) {
-  return assetIconPath(inferIconKind(item));
+  return `.assets/${iconFiles[inferIconKind(item)]}`;
 }
 
 function isPeopleIcon(kind: LarkIconKind) {
