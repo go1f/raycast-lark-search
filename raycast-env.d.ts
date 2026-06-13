@@ -20,11 +20,11 @@ type ExtensionPreferences = {
   "larkBundleId": string,
   /** Lark lark-cli Identity - lark-cli identity passed to --as when Lark is the selected target. */
   "larkCliIdentity": string,
-  /** Feishu Application - Enable Feishu/飞书 as a desktop app target for opening chats, contacts, and messages. */
+  /** Feishu Application - Enable Feishu as a desktop app target for opening chats, contacts, and messages. */
   "enableFeishuApplication": boolean,
-  /** Feishu App - Feishu/飞书 application used for Raycast Quicklinks. */
+  /** Feishu App - Feishu application used for Raycast Quicklinks. */
   "feishuApplicationName"?: import("@raycast/api").Application,
-  /** Feishu Bundle ID - Bundle identifier used to open Feishu/飞书 links directly in the desktop app. */
+  /** Feishu Bundle ID - Bundle identifier used to open Feishu links directly in the desktop app. */
   "feishuBundleId": string,
   /** Feishu lark-cli Identity - lark-cli identity passed to --as when Feishu is the selected target. */
   "feishuCliIdentity": string,
