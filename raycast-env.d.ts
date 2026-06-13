@@ -12,10 +12,22 @@ type ExtensionPreferences = {
   "larkCliPath": string,
   /** Quicklink Export Limit - Maximum number of recently opened items to export as Quicklinks. */
   "quicklinkLimit": string,
-  /** Lark Bundle ID - Bundle identifier used to open Lark/Feishu links directly in the desktop app. */
+  /** Lark Application - Enable Lark as a desktop app target for opening chats, contacts, and messages. */
+  "enableLarkApplication": boolean,
+  /** Lark App - Lark application used for Raycast Quicklinks. */
+  "larkApplicationName"?: import("@raycast/api").Application,
+  /** Lark Bundle ID - Bundle identifier used to open Lark links directly in the desktop app. */
   "larkBundleId": string,
-  /** Lark Application Name - Application name used when creating Raycast Quicklinks. */
-  "larkApplicationName": string,
+  /** Lark lark-cli Identity - lark-cli identity passed to --as when Lark is the selected target. */
+  "larkCliIdentity": string,
+  /** Feishu Application - Enable Feishu/飞书 as a desktop app target for opening chats, contacts, and messages. */
+  "enableFeishuApplication": boolean,
+  /** Feishu App - Feishu/飞书 application used for Raycast Quicklinks. */
+  "feishuApplicationName"?: import("@raycast/api").Application,
+  /** Feishu Bundle ID - Bundle identifier used to open Feishu/飞书 links directly in the desktop app. */
+  "feishuBundleId": string,
+  /** Feishu lark-cli Identity - lark-cli identity passed to --as when Feishu is the selected target. */
+  "feishuCliIdentity": string,
   /** Hot Index Limit - Maximum number of Script Commands generated for Raycast root search. */
   "hotIndexLimit": string,
   /** Hot Index Script Commands Directory - Folder containing generated Lark Script Commands. Add this folder to Raycast Script Commands once. */
