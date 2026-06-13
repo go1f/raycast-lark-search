@@ -2,7 +2,7 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "lark-search",
   "title": "Lark Search",
-  "description": "搜索飞书/Feishu/Lark docs, messages, chats, and contacts from Raycast.",
+  "description": "Search Feishu/Lark docs, messages, chats, and contacts from Raycast.",
   "icon": "icon.png",
   "author": "jyufu_ko",
   "license": "MIT",
@@ -24,7 +24,7 @@
       "name": "search-lark",
       "title": "Lark Search",
       "subtitle": "Lark",
-      "description": "搜索飞书/Feishu/Lark docs, messages, chats, and contacts.",
+      "description": "Search Feishu/Lark docs, messages, chats, and contacts from Raycast.",
       "mode": "view"
     },
     {

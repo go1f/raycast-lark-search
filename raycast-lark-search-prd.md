@@ -33,7 +33,7 @@ Raycast 是系统级启动器和搜索入口。Lark Search 的目标是把飞书
 官方 Store 一句话描述建议：
 
 ```text
-搜索飞书/Feishu/Lark docs, messages, chats, and contacts from Raycast.
+Search Feishu/Lark docs, messages, chats, and contacts from Raycast.
 ```
 
 ## 3. 产品目标

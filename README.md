@@ -1,6 +1,6 @@
 # Raycast Lark Search
 
-搜索飞书/Feishu/Lark docs, messages, chats, and contacts from Raycast.
+Search Feishu/Lark docs, messages, chats, and contacts from Raycast.
 
 ## Features
 
