@@ -12,8 +12,10 @@ type ExtensionPreferences = {
   "appTarget": "lark" | "feishu" | "both",
   /** Lark-cli Path - Path to the lark-cli executable. */
   "larkCliPath": string,
-  /** Lark-cli Identity - Identity passed to lark-cli --as. */
+  /** Lark-cli Identity - Identity passed to lark-cli --as when searching Lark. */
   "larkCliIdentity": string,
+  /** Feishu Lark-cli Identity - Identity passed to lark-cli --as when searching Feishu. */
+  "feishuCliIdentity": string,
   /** Root Search Shortcut Folder - Choose where Lark Search writes shortcut files for Raycast Root Search. */
   "hotIndexDirectory": string,
   /** Root Search Shortcut Limit - Maximum number of local shortcuts shown in Raycast Root Search. */
